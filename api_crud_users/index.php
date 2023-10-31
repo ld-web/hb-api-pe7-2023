@@ -4,11 +4,23 @@
 header('Content-Type: application/json; charset=UTF-8');
 // Avec le header Access-Control-Allow-Origin,
 // j'autorise http://127.0.0.1:5500 à requêter
-header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
+// header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
 
-// Établir une connexion PDO à une base de données, puis récupérer tous les utilisateurs
+require_once 'vendor/autoload.php';
 
-// On a indiqué en ligne 4 qu'on renvoyait du JSON (avec le type MIME "application/json"),
-// donc on encode (on transforme) notre tableau d'utilisateurs en une chaîne de
-// caractères JSON
-echo json_encode($users);
+use Symfony\Component\Dotenv\Dotenv;
+use App\DbConnection;
+
+// Chargement des variables d'environnement
+$dotenv = new Dotenv();
+$dotenv->loadEnv(__DIR__ . '/.env');
+
+// Récupération de la connexion à la BDD
+try {
+    $pdo = DbConnection::getConnection();
+    $stmt = $pdo->query("SELECT id, last_name, first_name, email, active, profile_pic FROM users");
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($users);
+} catch (PDOException $e) {
+    // TODO: Que faire en cas d'erreur ?
+}
