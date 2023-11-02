@@ -4,12 +4,14 @@
 header('Content-Type: application/json; charset=UTF-8');
 // Avec le header Access-Control-Allow-Origin,
 // j'autorise http://127.0.0.1:5500 à requêter
-// header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
+header('Access-Control-Allow-Origin: http://127.0.0.1:5500');
+header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 
 require_once 'vendor/autoload.php';
 
 use Symfony\Component\Dotenv\Dotenv;
-use App\DbConnection;
+use App\DbConnection; // FQCN : Fully Qualified Class Name
 
 // En cas d'exception non "catch", j'exécute cette fonction
 // Elle recevra l'exception qui n'a pas été "catch", et
