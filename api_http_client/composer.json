@@ -1,0 +1,19 @@
+{
+  "name": "ld-web/http-client-example",
+  "description": "Symfony HTTP Client example for HB Students",
+  "authors": [
+    {
+      "name": "Lucas Delobelle",
+      "email": "lucas@ld-web.net"
+    }
+  ],
+  "scripts": {
+    "start": "php -S localhost:8000"
+  },
+  "config": {
+    "process-timeout": 0
+  },
+  "require": {
+    "symfony/http-client": "^6.3"
+  }
+}
